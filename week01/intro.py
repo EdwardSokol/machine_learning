@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 
+from utils import pretty_print
 
-def pretty_print():
-    print('\n')
-    print('#' * 100)
-    print('\n')
-
-X = np.random.normal(loc=1, scale=10, size=(1000, 50))
+X = np.random.normal(loc=1, scale=10, size=(5, 2))
 print('X', X)
 
 pretty_print()
@@ -23,7 +19,7 @@ print('X_norm', X_norm)
 
 pretty_print()
 
-Z = np.array([[4, 5, 0],
+Z = np.array([[4, 5, 2],
               [1, 9, 3],
               [5, 1, 1],
               [3, 3, 3],
