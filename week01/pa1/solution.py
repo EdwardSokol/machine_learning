@@ -25,3 +25,16 @@ print(data['Survived'][data['Survived'] == 1].count())
 print(data['Survived'][data['Survived'] == 0].count())
 print(data['Survived'].count())
 print(float(data['Survived'][data['Survived'] == 1].count()) / data['Survived'].count() * 100)
+
+pretty_print()
+
+print(data['Pclass'][data['Pclass'] == 1].count())
+print(data['Pclass'].count())
+print(float(data['Pclass'][data['Pclass'] == 1].count()) / data['Pclass'].count() * 100)
+
+pretty_print()
+
+# TODO
+# print(data['Age'][data['Pclass'] == 1].count())
+# print(data['Pclass'].count())
+# print(float(data['Pclass'][data['Pclass'] == 1].count()) / data['Pclass'].count() * 100)
