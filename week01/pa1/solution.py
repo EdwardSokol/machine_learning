@@ -10,7 +10,7 @@ data = pandas.read_csv('titanic.csv', index_col='PassengerId')
 # pretty_print()
 
 # print(data['Survived'])
-# print(data['Survived'].value_counts())
+print(data['Survived'].value_counts())
 # print(data['Pclass'].value_counts())
 # print(data['Pclass'].value_counts())
 
@@ -63,5 +63,9 @@ print("6) Какое самое популярное женское имя на 
       "Данные очень разнородные и шумные, но из них требуется извлечь необходимую информацию. "
       "Попробуйте вручную разобрать несколько значений столбца Name и выработать правило для извлечения имен, "
       "а также разделения их на женские и мужские.")
-with open('pa1/answers/question6.txt', 'w') as f:
-    f.write('6')
+print(data['Name'][data['Sex'] == 'female'])
+print(pandas.DataFrame(data['Name'][data['Sex'] == 'female'].str.split(',').tolist(), columns=['SurName', 'FirstName']))
+# Mrs.
+# Miss.
+# with open('pa1/answers/question6.txt', 'w') as f:
+#     f.write('6')
