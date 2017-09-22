@@ -63,8 +63,19 @@ print("6) Какое самое популярное женское имя на 
       "Данные очень разнородные и шумные, но из них требуется извлечь необходимую информацию. "
       "Попробуйте вручную разобрать несколько значений столбца Name и выработать правило для извлечения имен, "
       "а также разделения их на женские и мужские.")
-print(data['Name'][data['Sex'] == 'female'])
-print(pandas.DataFrame(data['Name'][data['Sex'] == 'female'].str.split(',').tolist(), columns=['SurName', 'FirstName']))
+# print(data['Name'][data['Sex'] == 'female'])
+first_names = pandas.DataFrame(
+    data['Name'][data['Sex'] == 'female'].str.split(',').tolist()[1].extract("^Mrs\.[\s\w\(\)]+$"), columns=['SurName', 'FirstName']
+)['FirstName']
+# https://pandas.pydata.org/pandas-docs/stable/text.html
+# https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.str.extract.html
+import re
+regex = re.compile("^Mrs\.[\s\w\(\)]+$")
+# print(first_names.apply(regex.match))
+# print(first_names.groupby())
+print(first_names[311].strip())
+print(type(first_names[311]))
+print(regex.match(first_names[311].strip()))
 # Mrs.
 # Miss.
 # with open('pa1/answers/question6.txt', 'w') as f:
