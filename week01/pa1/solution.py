@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# useful links
+# https://habrahabr.ru/post/172043/
+# http://www.webpages.uidaho.edu/~stevel/504/Pandas%20DataFrame%20Notes.pdf
 import pandas
 
 from utils import pretty_print
@@ -63,20 +66,30 @@ print("6) Какое самое популярное женское имя на 
       "Данные очень разнородные и шумные, но из них требуется извлечь необходимую информацию. "
       "Попробуйте вручную разобрать несколько значений столбца Name и выработать правило для извлечения имен, "
       "а также разделения их на женские и мужские.")
-# print(data['Name'][data['Sex'] == 'female'])
-first_names = pandas.DataFrame(
-    data['Name'][data['Sex'] == 'female'].str.split(',').tolist()[1].extract("^Mrs\.[\s\w\(\)]+$"), columns=['SurName', 'FirstName']
-)['FirstName']
-# https://pandas.pydata.org/pandas-docs/stable/text.html
-# https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.str.extract.html
-import re
-regex = re.compile("^Mrs\.[\s\w\(\)]+$")
-# print(first_names.apply(regex.match))
-# print(first_names.groupby())
-print(first_names[311].strip())
-print(type(first_names[311]))
-print(regex.match(first_names[311].strip()))
-# Mrs.
-# Miss.
-# with open('pa1/answers/question6.txt', 'w') as f:
-#     f.write('6')
+
+
+def get_name(first_name_to_parse):
+    if 'Mrs.' in first_name_to_parse:
+        if '(' in first_name_to_parse:
+            # Bystrom, Mrs. (Karolina)
+            return first_name_to_parse.split('(')[1].strip(')').split()[0]
+        else:
+            # Masselmani, Mrs. Fatima
+            return first_name_to_parse.split('Mrs.')[1].strip().split()[0]
+    elif 'Miss.' in first_name_to_parse:
+        return first_name_to_parse.split('Miss.')[1].strip().split()[0]
+
+
+female_names = pandas.DataFrame(data[data['Sex'] == 'female']['Name'])
+pretty_print()
+print(female_names)
+
+names_filtered = female_names['Name'].apply(func=get_name)
+
+pretty_print()
+
+print(names_filtered)
+
+pretty_print()
+
+print(names_filtered.value_counts())
